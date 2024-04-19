@@ -8,7 +8,7 @@ openai.api_key = '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'
 
 # Initialize Flask application
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://9b1d-183-82-103-168.ngrok-free.app"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def generate_response(prompt):
     # Generate a response from the chat model
