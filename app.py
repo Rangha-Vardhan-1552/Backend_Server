@@ -39,7 +39,7 @@ def stream_chatbot():
     user_input = data.get('input')
     
     if not user_input:
-        return jsonify({'error': 'No input provided'})
+        return jsonify({'error': 'No input provided'}), 400
     
     def generate():
         # Generate a response from the chat model
@@ -54,7 +54,10 @@ def stream_chatbot():
         bot_response = response.choices[0].message["content"]
         yield json.dumps(bot_response) + '\n'
     
-    return Response(generate(), content_type='application/json')
+    response = Response(generate(), content_type='application/json')
+    response.headers['Access-Control-Allow-Origin'] = '*'  # Allow all origins
+    
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
